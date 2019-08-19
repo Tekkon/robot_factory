@@ -3,3 +3,4 @@ module NameGenerator
 
   end
 end
+

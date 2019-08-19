@@ -9,3 +9,4 @@ class Robot
     self.name = nil
   end
 end
+
