@@ -5,8 +5,7 @@ class Robot
     @name = name
   end
 
-  def self.forget
+  def forget
     self.name = nil
   end
 end
-

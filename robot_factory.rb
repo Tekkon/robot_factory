@@ -6,13 +6,25 @@ class RobotFactory
 
   include NameGenerator
 
-  def create_robot
+  def initialize
+    @robots = []
+  end
 
+  def create_robot
+    robots << Robot.new(generate_unique_name)
+    robots.last
   end
 
   private
 
-  def is_unique?(robot)
+  def generate_unique_name
+    loop do
+      name = generate_name
+      return name if is_unique?(name)
+    end
+  end
 
+  def is_unique?(name)
+    !robots.map { |r| r.name }.include?(name)
   end
 end
