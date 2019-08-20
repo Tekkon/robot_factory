@@ -5,7 +5,7 @@ class Robot
     @name = name
   end
 
-  def forget
+  def reset_settings
     self.name = nil
   end
 end
