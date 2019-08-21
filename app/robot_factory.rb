@@ -1,15 +1,29 @@
-require_relative 'unique_name_generator'
+require_relative 'name_generator'
 require_relative 'robot'
 
 class RobotFactory
-  attr_accessor :names
+  attr_accessor :names, :name_generator
 
-  def initialize
+  def initialize(name_generator)
     @names = []
+    @name_generator = name_generator
   end
 
   def create_robot
-    self.names << UniqueNameGenerator.new(names).generate_name
+    self.names << generate_unique_name
     Robot.new(names.last)
+  end
+
+  private
+
+  def generate_unique_name
+    loop do
+      name = name_generator.generate_name
+      return name if is_unique?(name)
+    end
+  end
+
+  def is_unique?(name)
+    !names.include?(name)
   end
 end
