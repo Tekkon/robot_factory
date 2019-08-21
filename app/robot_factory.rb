@@ -4,6 +4,10 @@ require_relative 'robot'
 class RobotFactory
   attr_accessor :names, :name_generator
 
+  def self.build
+    new(NameGenerator.new)
+  end
+
   def initialize(name_generator)
     @names = []
     @name_generator = name_generator

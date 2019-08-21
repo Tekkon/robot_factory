@@ -4,7 +4,7 @@ class App
   attr_reader :robot_factory
 
   def initialize
-    @robot_factory = RobotFactory.new(NameGenerator.new)
+    @robot_factory = RobotFactory.build
   end
 
   def self.run
