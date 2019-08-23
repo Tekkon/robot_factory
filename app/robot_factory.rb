@@ -10,20 +10,18 @@ class RobotFactory
   end
 
   def create_robot
-    self.names << generate_unique_name
-    Robot.new(names.last)
+    Robot.new
   end
 
-  private
+  def new_robot_name
+    name = nil
 
-  def generate_unique_name
     loop do
       name = name_generator.generate_name
-      return name if is_unique?(name)
+      break unless names.include?(name)
     end
-  end
 
-  def is_unique?(name)
-    !names.include?(name)
+    names << name
+    name
   end
 end
