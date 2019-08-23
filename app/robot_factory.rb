@@ -2,14 +2,14 @@ require_relative 'name_generator'
 require_relative 'robot'
 
 class RobotFactory
-  attr_accessor :names, :name_generator
+  attr_accessor :robot_names, :name_generator
 
   def self.build
     new(NameGenerator.new)
   end
 
   def initialize(name_generator)
-    @names = []
+    @robot_names = []
     @name_generator = name_generator
   end
 
@@ -17,15 +17,8 @@ class RobotFactory
     Robot.new
   end
 
-  def new_robot_name
-    name = nil
-
-    loop do
-      name = name_generator.generate_name
-      break unless names.include?(name)
-    end
-
-    names << name
-    name
+  def new_robot_unique_name
+    begin new_name = name_generator.generate_name end while robot_names.include?(new_name)
+    new_name.tap { |name| robot_names << name }
   end
 end

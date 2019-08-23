@@ -31,10 +31,10 @@ class App
   end
 
   def asset_new_robot_name
-    robot.name = robot_factory.new_robot_name
+    robot.name = robot_factory.new_robot_unique_name
   end
 
   def print_result
-    puts "There are several robots with these names: #{robot_factory.names}"
+    puts "There are several robots with these robot_names: #{robot_factory.robot_names}"
   end
 end
