@@ -1,7 +1,7 @@
 require_relative 'app/robot_factory'
 
 class App
-  attr_accessor :robot_factory, :robot
+  attr_accessor :robot_factory
 
   def initialize
     @robot_factory = RobotFactory.build
@@ -15,7 +15,6 @@ class App
     loop do
       print_message
       create_robot
-      asset_new_robot_name
       print_result
     end
   end
@@ -27,11 +26,7 @@ class App
   end
 
   def create_robot
-    self.robot = robot_factory.create_robot
-  end
-
-  def asset_new_robot_name
-    robot.name = robot_factory.new_robot_unique_name
+    robot_factory.create_robot
   end
 
   def print_result

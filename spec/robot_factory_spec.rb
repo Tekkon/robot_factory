@@ -7,38 +7,31 @@ describe RobotFactory do
   let(:robot_factory) { RobotFactory.new(name_generator) }
 
   before do
-    name_generator.expect :generate_name, "BD890"
+    name_generator.expect :generate_name, 'BD890'
+    name_generator.expect :generate_name, 'KX320'
     name_generator.expect :nil?, false
   end
 
-  describe '#initialize' do
-    it 'assets @robot_names as an empty array' do
-      assert_equal robot_factory.robot_names, []
-    end
-
-    it 'assets @name_generator variable' do
-      assert !robot_factory.name_generator.nil?
-    end
-  end
-
   describe '#create_robot' do
-    it 'creates and returns a robot' do
-      assert_kind_of Robot, robot_factory.create_robot
+    it 'creates a robot with a name' do
+      assert !robot_factory.create_robot.name.nil?
     end
   end
 
-  describe '#new_robot_unique_name' do
-    it 'returns a unique name' do
-      robot_factory.robot_names = ['RX500', 'SZ224']
-      assert !robot_factory.robot_names.take(robot_factory.robot_names.length - 1).include?(robot_factory.send(:new_robot_unique_name))
+  describe '#reset_robot' do
+    it "resets the robot's name" do
+      robot = robot_factory.create_robot
+      assert robot.name != robot_factory.reset_robot(robot)
     end
+  end
 
-    it 'calls NameGenerator.generate_name method' do
-      assert_send [robot_factory.name_generator, :generate_name]
+  describe '#new_unique_robot_name' do
+    it 'returns a unique name' do
+      assert robot_factory.send(:new_unique_robot_name) != robot_factory.send(:new_unique_robot_name)
     end
 
     it 'puts a new name to the @robot_names array' do
-      name = robot_factory.new_robot_unique_name
+      name = robot_factory.send(:new_unique_robot_name)
       assert robot_factory.robot_names.include?(name)
     end
   end

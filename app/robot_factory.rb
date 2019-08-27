@@ -14,10 +14,16 @@ class RobotFactory
   end
 
   def create_robot
-    Robot.new
+    Robot.new(new_unique_robot_name)
   end
 
-  def new_robot_unique_name
+  def reset_robot(robot)
+    robot.name = new_unique_robot_name
+  end
+
+  private
+
+  def new_unique_robot_name
     begin new_name = name_generator.generate_name end while robot_names.include?(new_name)
     new_name.tap { |name| robot_names << name }
   end
