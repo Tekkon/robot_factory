@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require "minitest/spec"
 require_relative '../app/robot_factory'
 require_relative '../app/not_unique_value_error'
-require_relative '../app/robot_factory_spec_helper'
+require_relative 'robot_factory_spec_helper'
 
 describe RobotFactory do
   include RobotFactorySpecHelper
