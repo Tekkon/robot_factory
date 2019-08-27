@@ -1,0 +1,3 @@
+class NotUniqueValueError < StandardError
+
+end

@@ -1,5 +1,6 @@
 require_relative 'name_generator'
 require_relative 'robot'
+require_relative 'not_unique_value_error'
 
 class RobotFactory
   attr_accessor :robot_names, :name_generator
@@ -18,13 +19,20 @@ class RobotFactory
   end
 
   def reset_robot(robot)
-    robot.name = new_unique_robot_name
+    robot.tap { |r| r.name = new_unique_robot_name }
   end
 
   private
 
   def new_unique_robot_name
-    begin new_name = name_generator.generate_name end while robot_names.include?(new_name)
+    cycles_count = 0
+
+    begin
+      new_name = name_generator.generate_name
+      cycles_count +=1
+      raise NotUniqueValueError.new("The name shoud be unique!") if cycles_count >= 3
+    end while robot_names.include?(new_name)
+
     new_name.tap { |name| robot_names << name }
   end
 end
